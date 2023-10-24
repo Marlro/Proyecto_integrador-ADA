@@ -20,3 +20,21 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+import os
+import readchar
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def main():
+    number = 0
+    while number <= 50:
+        clear_screen()
+        print(f'Número actual: {number}')
+        key = readchar.readkey()
+        if key == 'n':
+            number += 1
+
+if __name__ == "__main__":
+    main()
