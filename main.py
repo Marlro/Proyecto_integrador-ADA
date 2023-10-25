@@ -91,3 +91,56 @@ posicion_inicial = (0, 0)
 posicion_final = (9, 9)
 
 main_loop(mapa_matriz, posicion_inicial, posicion_final)
+
+import os
+import random
+
+class Juego:
+    def __init__(self, mapa, posicion_inicial, posicion_final):
+        self.mapa = mapa
+        self.posicion_inicial = posicion_inicial
+        self.posicion_final = posicion_final
+        self.px, self.py = posicion_inicial
+    
+    def convertir_mapa_a_matriz(self):
+        # (La función convertir_mapa_a_matriz se mantiene igual)
+        pass
+
+    def mostrar_mapa(self):
+        # (La función mostrar_mapa se mantiene igual)
+        pass
+
+    def limpiar_pantalla(self):
+        # (La función limpiar_pantalla se mantiene igual)
+        pass
+
+    def main_loop(self):
+        # (La función main_loop se mantiene igual)
+        pass
+
+class JuegoArchivo(Juego):
+    def __init__(self, path_a_mapas):
+        # Lista de archivos de mapas en la carpeta especificada
+        lista_archivos = os.listdir(path_a_mapas)
+        # Elegir un archivo aleatorio
+        nombre_archivo = random.choice(lista_archivos)
+        path_completo = os.path.join(path_a_mapas, nombre_archivo)
+
+        with open(path_completo, 'r') as archivo:
+            contenido = archivo.read()
+
+        # Obtener mapa, posición inicial y posición final desde el archivo
+        contenido = contenido.strip().split('\n')
+        mapa = "\n".join(contenido[:-2])
+        pos_inicial = tuple(map(int, contenido[-2].split()))
+        pos_final = tuple(map(int, contenido[-1].split()))
+
+        super().__init__(mapa, pos_inicial, pos_final)
+
+# Ejemplo de uso
+if __name__ == "__main__":
+    # Crear una instancia de JuegoArchivo con la ruta a la carpeta de mapas
+    juego = JuegoArchivo('ruta/a/tu/carpeta/de/mapas')
+
+    # Ejecutar el juego
+    juego.main_loop()
