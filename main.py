@@ -144,3 +144,36 @@ if __name__ == "__main__":
 
     # Ejecutar el juego
     juego.main_loop()
+
+from functools import reduce
+
+class Juego:
+    # (Otras funciones se mantienen igual)
+    
+    def convertir_mapa_a_matriz(self):
+        return list(map(list, self.mapa.split("\n")))
+
+    def cargar_mapa_desde_archivo(self, archivo):
+        with open(archivo, 'r') as file:
+            contenido = file.readlines()
+
+        # Obtener mapa, posición inicial y posición final desde el archivo
+        contenido = list(map(str.strip, contenido))
+        mapa = "\n".join(contenido[:-2])
+        pos_inicial = tuple(map(int, contenido[-2].split()))
+        pos_final = tuple(map(int, contenido[-1].split()))
+
+        self.mapa = mapa
+        self.posicion_inicial = pos_inicial
+        self.posicion_final = pos_final
+        self.px, self.py = pos_inicial
+
+class JuegoArchivo(Juego):
+    def __init__(self, path_a_mapas):
+        # Lista de archivos de mapas en la carpeta especificada
+        lista_archivos = os.listdir(path_a_mapas)
+        # Elegir un archivo aleatorio
+        nombre_archivo = random.choice(lista_archivos)
+        path_completo = os.path.join(path_a_mapas, nombre_archivo)
+
+        self.cargar_mapa_desde_archivo(path_completo)
